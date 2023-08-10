@@ -19,12 +19,14 @@ find . -type f -name  "*.tar.gz"| xargs -I {} tar -xzvf {}
 В репозитории лежит файл с комментариями по каждому пункту.
 2. Что произойдет на плате?
 ### Изначально необходимо узнать, за что отвечают GPIO_SWPORTC_DR и GPIO_SWPORTC_DDR
+
 <figure>
   <img title="1" alt="Alt text" src="/media/elvees1.png">
   <figcaption>Рисунок 1. Общие бозначения. </figcaption>
 </figure>
 
 ### Теперь детальнее рассмотрим регистр GPIO_SWPORTC_DR
+
 <figure>
   <img title="1" alt="Alt text" src="/media/elvees2.png">
   <figcaption>Рисунок 2. Формат регистра GPIO_SWPORTC_DR </figcaption>
@@ -40,6 +42,7 @@ find . -type f -name  "*.tar.gz"| xargs -I {} tar -xzvf {}
 #### В нашем случае регистр _DDR имеет значение 32'b_0000_0001_0000_0000_0000_0000_0000
 #### Что означает, что 24й бит настроен на выдачу, а остальные на прием
 #### Значение же _DR будет меняться с 32'b_0000_0001_0000_0000_0000_0000_0000 на инвертированное
+
 <figure>
   <img title="1" alt="Alt text" src="/media/elvees4.png">
   <figcaption>Рисунок 4. Зоны ответственности регистров </figcaption>
@@ -54,6 +57,7 @@ find . -type f -name  "*.tar.gz"| xargs -I {} tar -xzvf {}
 
 ### Принципиальная схема
 #### Находим наш 24'й бит, и видим, что он отвечает за светодиод номер 1!
+
 <figure>
   <img title="1" alt="Alt text" src="/media/elvees6.png">
   <figcaption>Рисунок 6.  </figcaption>
