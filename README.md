@@ -18,7 +18,45 @@ find . -type f -name  "*.tar.gz"| xargs -I {} tar -xzvf {}
 1. Укажите, что происходит в ходе выполнения данной программы?
 В репозитории лежит файл с комментариями по каждому пункту.
 2. Что произойдет на плате?
+### Изначально необходимо узнать, за что отвечают GPIO_SWPORTC_DR и GPIO_SWPORTC_DDR
 <figure>
-  <img title="1" alt="Alt text" src="src/media/elvees1.png">
-  <figcaption>Figure 1. This is Basic example README.md:</figcaption>
+  <img title="1" alt="Alt text" src="/media/elvees1.png">
+  <figcaption>Рисунок 1. Общие бозначения. </figcaption>
 </figure>
+
+### Теперь детальнее рассмотрим регистр GPIO_SWPORTC_DR
+<figure>
+  <img title="1" alt="Alt text" src="/media/elvees2.png">
+  <figcaption>Рисунок 2. Формат регистра GPIO_SWPORTC_DR </figcaption>
+</figure>
+
+### И регистр GPIO_SWPORTC_DDR
+<figure>
+  <img title="1" alt="Alt text" src="/media/elvees3.png">
+  <figcaption>Рисунок 3.  Формат регистра GPIO_SWPORTC_DDR. </figcaption>
+</figure>
+
+### Рассмотрим зоны ответственности регистров
+#### В нашем случае регистр _DDR имеет значение 32'b_0000_0001_0000_0000_0000_0000_0000
+#### Что означает, что 24й бит настроен на выдачу, а остальные на прием
+#### Значение же _DR будет меняться с 32'b_0000_0001_0000_0000_0000_0000_0000 на инвертированное
+<figure>
+  <img title="1" alt="Alt text" src="/media/elvees4.png">
+  <figcaption>Рисунок 4. Зоны ответственности регистров </figcaption>
+</figure>
+
+### GPIO_SWPORTC_DDR и GPIO_SWPORTC_DR отвечают за PORT_C, теперь необходимо найти его на схеме
+
+<figure>
+  <img title="1" alt="Alt text" src="/media/elvees5.png">
+  <figcaption>Рисунок 5. Соответствие между портами логическими и физическими. </figcaption>
+</figure>
+
+### Принципиальная схема
+#### Находим наш 24'й бит, и видим, что он отвечает за светодиод номер 1!
+<figure>
+  <img title="1" alt="Alt text" src="/media/elvees6.png">
+  <figcaption>Рисунок 6.  </figcaption>
+</figure>
+
+#### Вывод: светодиод 1 будет мигать с задержкой в 50000 у.е. ( в зависимости от скорости с которой процессор сможет решать 50000 операций вычитания).
